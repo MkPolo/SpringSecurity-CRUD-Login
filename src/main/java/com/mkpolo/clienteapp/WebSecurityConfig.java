@@ -28,8 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		//usamos el atributo http para indicar que sean permitidas todas las solicitudes de acuerdo al rol del usuario
 		http.authorizeRequests()
 		.antMatchers("/","/css/**","/js/**","/images/**").permitAll()
-		.antMatchers("/views/clientes/").hasAnyRole("USER")
-		.antMatchers("/views/clientes/").hasAnyRole("ADMIN")
+		.antMatchers("/views/clientes/").hasAnyRole("USER","ADMIN")
 		.antMatchers("/views/clientes/create").hasAnyRole("ADMIN")
 		.antMatchers("/views/clientes/save").hasAnyRole("ADMIN")
 		.antMatchers("/views/clientes/edit/**").hasAnyRole("ADMIN")
