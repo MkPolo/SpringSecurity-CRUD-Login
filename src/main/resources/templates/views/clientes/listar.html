@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="planilla/template :: head">
 </head>
 <body>
@@ -11,7 +12,7 @@
 
 	<div class="container">
 	
-	<a class="btn btn-primary btn-sm" th:href="@{/views/clientes/create}" th:text="'Nuevo CLiente'" title="Crear Nuevo Registro"></a>
+	<a class="btn btn-primary btn-sm" th:href="@{/views/clientes/create}" sec:authorize="hasRole('ROLE_ADMIN')" th:text="'Nuevo CLiente'" title="Crear Nuevo Registro"></a>
 	
 		<table class="table">
 			<thead class="thead-dark">
@@ -22,7 +23,7 @@
 					<th scope="col">TELÉFONO</th>
 					<th scope="col">CORREO</th>
 					<th scope="col">CIUDAD</th>
-					<th scope="col">ACCIONES</th>
+					<th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">ACCIONES</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,7 +34,7 @@
 					<td th:text="${cl.telefono}"></td>
 					<td th:text="${cl.email}"></td>
 					<td th:text="${cl.ciudad.ciudad}"></td>
-					<td>
+					<td sec:authorize="hasRole('ROLE_ADMIN')">
 					<a class="btn btn-warning btn-sm" th:href="@{/views/clientes/edit/} + ${cl.id}" th:text="'Editar'" title="Modificar Registro"></a>
 					<a class="btn btn-danger btn-sm" th:href="@{/views/clientes/delete/} + ${cl.id}"
 					 th:text="'Eliminar'" title="Eliminar Registro" onclick="return confirm('Esta seguro de eliminar el registro?');"></a>
