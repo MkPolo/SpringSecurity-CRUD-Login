@@ -5,12 +5,14 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.mkpolo.clienteapp.util.LoginSuccessMessage;
 
+@EnableGlobalMethodSecurity(securedEnabled=true)
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
@@ -28,11 +30,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		//usamos el atributo http para indicar que sean permitidas todas las solicitudes de acuerdo al rol del usuario
 		http.authorizeRequests()
 		.antMatchers("/","/css/**","/js/**","/images/**").permitAll()
-		.antMatchers("/views/clientes/").hasAnyRole("USER","ADMIN")
-		.antMatchers("/views/clientes/create").hasAnyRole("ADMIN")
-		.antMatchers("/views/clientes/save").hasAnyRole("ADMIN")
-		.antMatchers("/views/clientes/edit/**").hasAnyRole("ADMIN")
-		.antMatchers("/views/clientes/delete/**").hasAnyRole("ADMIN")
+				/*
+				 * .antMatchers("/views/clientes/").hasAnyRole("USER","ADMIN")
+				 * .antMatchers("/views/clientes/create").hasAnyRole("ADMIN")
+				 * .antMatchers("/views/clientes/save").hasAnyRole("ADMIN")
+				 * .antMatchers("/views/clientes/edit/**").hasAnyRole("ADMIN")
+				 * .antMatchers("/views/clientes/delete/**").hasAnyRole("ADMIN")
+				 */
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()

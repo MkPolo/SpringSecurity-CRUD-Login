@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +31,7 @@ public class ClienteController {
 	@Autowired
 	private ICiudadService ciudadService;
 
+	@Secured({"ROLE_USER","ROLE_ADMIN"})
 	@GetMapping("/")
 	public String listarClientes(Model model) {
 		List<Cliente> listadoClientes = clienteService.listartodos();
@@ -40,6 +42,7 @@ public class ClienteController {
 		return "/views/clientes/listar";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/create")
 	public String crear(Model model) {
 
@@ -53,6 +56,7 @@ public class ClienteController {
 		return "/views/clientes/frmCrear";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/save")
 	public String guardar(@Valid @ModelAttribute Cliente cliente, BindingResult result,
 			Model model, RedirectAttributes attribute) {
@@ -73,6 +77,7 @@ public class ClienteController {
 		return "redirect:/views/clientes/";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/edit/{id}")
 	public String editar(@PathVariable("id") Long idCliente,
 			Model model, RedirectAttributes attribute) {
@@ -99,6 +104,7 @@ public class ClienteController {
 		return "/views/clientes/frmCrear";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/delete/{id}")
 	public String eliminar(@PathVariable("id") Long idCliente, RedirectAttributes attribute) {
 
